@@ -186,3 +186,26 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Categories buttons */
+.categories {
+	display: flex;
+	justify-content: space-around;
+	width: 50%;
+	margin: 40px auto;
+}
+
+.categories button { /* Encadrement des filtres */
+	font-family: 'Syne';
+	background-color: white;
+	color: #1D6154;
+	border: 0.15em #1D6154 solid;
+	padding: 9px 17px;
+	margin: 5px;
+	border-radius: 25px;
+	font-weight: bold;
+}
+
+.categories button:hover{
+	background-color: #1D6154;
+	color: white
+}
