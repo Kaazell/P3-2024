@@ -15,54 +15,65 @@ document.querySelector("#h2").appendChild(categories);
 getWorks();
 getCategories();
 
-// Variables globales (assurez-vous de les définir correctement)
-let dataWorks = []; // Définissez correctement ces variables avec vos données
-let dataCategories = []; // Définissez correctement ces variables avec vos données
+// Variables globales
+let dataWorks = [];
+let dataCategories = [];
 
 // Création de la fonction de récupération des travaux depuis l'API
-async function getWorks() {
-  try {
-    const response = await fetch("http://localhost:5678/api/works");
+async function getWorks(data) {
+  console.log(data);
+  if (data === undefined) {
+    try {
+      const response = await fetch("http://localhost:5678/api/works");
 
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP : ${response.status}`);
+      }
+
+      dataWorks = await response.json();
+      console.log(dataWorks);
+
+      // Construction de la boucle for dans la fonction pour ajouter les données de data au DOM.
+      for (let i = 0; i < dataWorks.length; i++) {
+        const figure = document.createElement("figure");
+        const img = document.createElement("img");
+        const figcaption = document.createElement("figcaption");
+        img.src = dataWorks[i].imageUrl;
+        figcaption.innerText = dataWorks[i].title;
+        figure.appendChild(img);
+        figure.appendChild(figcaption);
+        gallery.appendChild(figure);
+      }
+    } catch (erreur) {
+      console.error(
+        "Une erreur s'est produite lors de la récupération des données :",
+        erreur
+      );
     }
-
-    dataWorks = await response.json();
-
-    // Construction de la boucle for dans la fonction pour ajouter les données de data au DOM.
-    for (let i = 0; i < dataWorks.length; i++) {
-      buildGallery(dataWorks[i]);
+  } else {
+    for (let i = 0; i < data.length; i++) {
+      const figure = document.createElement("figure");
+      const img = document.createElement("img");
+      const figcaption = document.createElement("figcaption");
+      img.src = data[i].imageUrl;
+      figcaption.innerText = data[i].title;
+      figure.appendChild(img);
+      figure.appendChild(figcaption);
+      gallery.appendChild(figure);
     }
-  } catch (erreur) {
-    console.error(
-      "Une erreur s'est produite lors de la récupération des données :",
-      erreur
-    );
   }
 }
 
-// Fonctions à insérer dans la boucle
-function buildGallery(workData) {
-  const figure = document.createElement("figure");
-  const img = document.createElement("img");
-  const figcaption = document.createElement("figcaption");
-  img.src = workData.imageUrl;
-  figcaption.innerText = workData.title;
-  figure.appendChild(img);
-  figure.appendChild(figcaption);
-  gallery.appendChild(figure);
-}
-
-function onClick(filteredData) {
-  // Implémentez le comportement souhaité ici
-  console.log(filteredData);
+function onClick(filter) {
+  let filtered = filter;
+  document.querySelector(".gallery").innerHTML = "";
+  getWorks(filtered);
 }
 
 function generateFilters(name, onClickFunction) {
   const button = document.createElement("button");
   button.innerText = name;
-  button.addEventListener("click", () => onClickFunction());
+  button.addEventListener("click", onClickFunction);
   categories.append(button);
 }
 
@@ -77,7 +88,7 @@ async function getCategories() {
 
     dataCategories = await response.json();
     console.log(dataCategories);
-    // Construction de la boucle for dans la fonction pour ajouter les données de data au DOM.
+
     generateFilters("Tous", () =>
       onClick(dataWorks.filter((work) => work.userId === 1))
     );
