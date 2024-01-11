@@ -18,6 +18,7 @@ getCategories();
 // Variables globales
 let dataWorks = [];
 let dataCategories = [];
+let modal = null;
 
 // Création de la fonction de récupération des travaux depuis l'API
 async function getWorks(data) {
@@ -125,12 +126,103 @@ function connected() {
 }
 connected();
 
-// L'utilisateur est déconnecté et le token supprimé lorsqu'il clique sur logout
-function removeToken() {
+// L'utilisateur est déconnecté et le token retiré lorsqu'il clique sur logout
+logButton.addEventListener("click", () => {
   if (logButton.innerText === "logout") {
-    logButton.addEventListener("click", () =>
-      sessionStorage.removeItem("token")
-    );
+    sessionStorage.removeItem("token");
+  }
+});
+
+// Modale
+const openModal = function (e) {
+  e.preventDefault();
+
+  const target = document.querySelector(e.target.getAttribute("href"));
+  target.style.display = null;
+  target.removeAttribute("aria-hidden");
+  target.setAttribute("aria-modal", "true");
+  modal = target;
+  modal.addEventListener("click", closeModal);
+  modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-stop")
+    .addEventListener("click", stopPropagation);
+};
+
+const closeModal = function (e) {
+  if (modal === null) return;
+  e.preventDefault();
+  const target = document.querySelector(e.target.getAttribute("href"));
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+  modal.removeAttribute("aria-modal");
+  modal.removeEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-close")
+    .removeEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-stop")
+    .removeEventListener("click", stopPropagation);
+  modal = null;
+};
+
+const stopPropagation = function (e) {
+  e.stopPropagation();
+};
+
+document.querySelectorAll(".js-modal").forEach((a) => {
+  a.addEventListener("click", openModal);
+});
+
+window.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeModal(e);
+  }
+});
+
+const modalDisp = document.querySelector(".modal-wrapper");
+
+function displayGalleryModal(data) {
+  const gallery = document.createElement("div");
+  modalDisp.append(gallery);
+  gallery.className = "works-modal";
+  for (let i = 0; i < data.length; i++) {
+    let figure = document.createElement("figure");
+    let img = document.createElement("img");
+    let crossImg = document.createElement("i");
+    let figCaption = document.createElement("figcaption");
+
+    crossImg.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+    img.src = data[i].imageUrl;
+    figCaption.innerText = data[i].title;
+
+    gallery.append(figure);
+    figure.append(crossImg);
+    figure.append(img);
+    figure.append("éditer");
   }
 }
-removeToken();
+
+async function getJsonModal() {
+  try {
+    const response = await fetch("http://localhost:5678/api/works", {
+      method: "GET",
+    });
+    if (!response.ok) {
+      throw new Error("Une erreur est survenue.");
+    }
+    const dataModal = await response.json();
+    displayGalleryModal(dataModal);
+    const hr = document.createElement("hr");
+    const galleryEdit = document.createElement("div");
+    galleryEdit.setAttribute("id", "gallery-edit-buttons");
+    galleryEdit.innerHTML =
+      "<button class='gallery-edit'>Ajouter une photo</button><button id='delete-gallery' class='delete-gallery'>Supprimer la galerie</button>";
+    modalDisp.append(hr);
+    modalDisp.append(galleryEdit);
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+getJsonModal();

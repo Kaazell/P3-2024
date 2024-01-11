@@ -289,3 +289,111 @@ footer nav ul {
 .edit-mode {
 	padding: 9px 17px;
 }
+/* Modale */
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height:100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+.modal-wrapper {
+	overflow: auto;
+	width: 600px;
+	padding: 20px;
+	max-width: calc(100vh - 20px);
+	max-height: calc(100vh - 20px);
+	background-color: #fff;
+	border-radius: 10px;
+}
+.modal-wrapper h2{
+	text-align: center;
+	padding: 40px;
+	font-family: 'Work Sans';
+	font-weight: 100;
+	color: black;
+	font-size:x-large;
+}
+.works-modal {
+	margin-left: 5%;
+	margin-right: 5%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 20px;
+	
+}
+.works-modal img {
+	width: 80%;
+}
+.js-modal-close {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	cursor: pointer;
+}
+.works-modal figure img {
+	width: 100%;
+}
+.works-modal figure {
+	width: 100%;
+}
+.fa-trash-can {
+    color: white;
+    position: relative;
+    left: 72px;
+    top: 30px;
+    background-color: black;
+    padding: 5px;
+    border-radius: 3px;
+	cursor: pointer;
+}
+
+.gallery-edit { /* Encadrement des filtres */
+	font-family: 'Syne';
+	background-color: white;
+	color: #1D6154;
+	width: 250px;
+	border: 0.15em #1D6154 solid;
+	padding: 9px 17px;
+	margin: 5px;
+	border-radius: 25px;
+	font-weight: bold;
+	}
+	
+.gallery-edit:hover{
+	background-color: #1D6154;
+	color: white
+}
+button#delete-gallery {
+    font-weight: 100;
+	border: none;
+	background-color: white;
+	color: red;
+}
+
+#gallery-edit-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+hr {
+	color: #B3B3B3;
+	width: 530px;
+	height: 0px;
+	border: 1px solid #B3B3B3;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+#gallery-edit-buttons>button{
+	margin: 10px;
+	cursor: pointer;
+}
