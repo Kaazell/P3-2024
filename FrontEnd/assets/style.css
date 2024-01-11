@@ -209,3 +209,83 @@ footer nav ul {
 	background-color: #1D6154;
 	color: white
 }
+
+/*  Log In */
+#login {
+	width: 50%;
+	margin: auto;
+	height: 75vh
+
+}
+#login > * {
+	text-align: center;
+
+}
+#login h2{
+	margin-bottom: 20px;
+}
+#login form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login label {
+	margin: 2em 0 1em 0;
+}
+#login textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#se-connecter {
+	cursor: pointer;
+}
+/* Edit black banner */
+#edit {
+	width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 60px;
+    margin-left: calc(-1 * ((100vw - 100%) / 2));
+}
+#edit > ul {
+	width: 28%;
+	display: flex;
+	justify-content: space-between;
+}
+.edit-buttons {
+	color: white;
+}
+.edit-buttons>a {
+	color: white;
+	text-decoration: none;
+}
+.edit-buttons>i {
+	color: white;
+}
+.edit-buttons:hover {
+	cursor: pointer;
+	color: grey;
+}
+.publish-changes{
+	background-color: white;
+	color: black;
+	width: auto;
+	border: 0.15em white solid;
+	padding: 9px 17px;
+	border-radius: 25px;
+	font-weight: bold;
+}
+.edit-mode {
+	padding: 9px 17px;
+}

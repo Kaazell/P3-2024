@@ -108,3 +108,29 @@ async function getCategories() {
     );
   }
 }
+
+// Bannière noire "Mode édition"
+const token = sessionStorage.getItem("token");
+const editBanner = document.querySelector("#edit");
+const logButton = document.querySelector("#log");
+// La bannière est invisible lorsque l'utilisateur n'est pas connecté.
+editBanner.style.visibility = "collapse";
+function connected() {
+  // Si le token = true, on fait apparaitre la bannière et le login devient logout
+  if (token) {
+    edit.style.visibility = "visible";
+    logButton.innerHTML =
+      '<a style="color: black; text-decoration: none;" href="login.html">logout</a>';
+  }
+}
+connected();
+
+// L'utilisateur est déconnecté et le token supprimé lorsqu'il clique sur logout
+function removeToken() {
+  if (logButton.innerText === "logout") {
+    logButton.addEventListener("click", () =>
+      sessionStorage.removeItem("token")
+    );
+  }
+}
+removeToken();
