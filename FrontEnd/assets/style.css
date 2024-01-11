@@ -207,7 +207,8 @@ footer nav ul {
 
 .categories button:hover{
 	background-color: #1D6154;
-	color: white
+	color: white;
+	cursor: pointer;	
 }
 
 /*  Log In */
@@ -247,7 +248,7 @@ footer nav ul {
 #se-connecter {
 	cursor: pointer;
 }
-/* Edit black banner */
+/* Edit mode */
 #edit {
 	width: 100vw;
     display: flex;
@@ -261,7 +262,7 @@ footer nav ul {
 #edit > ul {
 	width: 28%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 }
 .edit-buttons {
 	color: white;
@@ -277,17 +278,18 @@ footer nav ul {
 	cursor: pointer;
 	color: grey;
 }
-.publish-changes{
-	background-color: white;
-	color: black;
-	width: auto;
-	border: 0.15em white solid;
-	padding: 9px 17px;
-	border-radius: 25px;
-	font-weight: bold;
-}
 .edit-mode {
 	padding: 9px 17px;
+}
+
+#h2 a {
+	font-size: small;
+	font-family: Arial, Helvetica, sans-serif;
+	color: black;
+	font-weight: 100;
+	margin-left: 15px;
+	cursor: pointer;
+	text-decoration: none;
 }
 /* Modale */
 .modal {

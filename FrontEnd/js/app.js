@@ -116,12 +116,15 @@ const editBanner = document.querySelector("#edit");
 const logButton = document.querySelector("#log");
 // La bannière est invisible lorsque l'utilisateur n'est pas connecté.
 editBanner.style.visibility = "collapse";
+
 function connected() {
   // Si le token = true, on fait apparaitre la bannière et le login devient logout
   if (token) {
     edit.style.visibility = "visible";
     logButton.innerHTML =
       '<a style="color: black; text-decoration: none;" href="login.html">logout</a>';
+      categories.style.visibility = "collapse"
+      categories.style.height = 0
   }
 }
 connected();
