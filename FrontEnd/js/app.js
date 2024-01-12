@@ -190,12 +190,18 @@ function displayGalleryModal(data) {
   modalDisp.append(gallery);
   gallery.className = "works-modal";
   for (let i = 0; i < data.length; i++) {
+    console.log(data[i].id)
     let figure = document.createElement("figure");
     let img = document.createElement("img");
     let crossImg = document.createElement("i");
     let figCaption = document.createElement("figcaption");
+    crossImg.setAttribute('id', data[i].id);
 
     crossImg.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+    crossImg.addEventListener('click', function (event) {
+      deleteWorks(data[i].id);
+      alert('Supression du work id=' + data[i].id);
+    })
     img.src = data[i].imageUrl;
     figCaption.innerText = data[i].title;
 
@@ -229,3 +235,14 @@ async function getJsonModal() {
 }
 
 getJsonModal();
+
+// Delete
+function deleteWorks(id) {
+  fetch(`http://localhost:5678/api/works/${id}`, {
+      method: 'DELETE',
+      headers: {
+          'content-type': "application/Json",
+          'authorization': "Bearer " + sessionStorage.getItem("token"),
+      },
+  })
+};
