@@ -114,18 +114,14 @@ function displayAdminMode() {
     log.href = "index.html";
     log.innerText = "logout";
     // Affichage de la bannière noir
-    const bannerTemplate = `<div class="edit_mode"><i class="fas fa-regular fa-pen-to-square fa-lg"></i><p>Mode édition</p><button class="edit_mode_btn">publier les changements</button></div>`;
+    const bannerTemplate = `<div class="edit_mode"><i class="fas fa-regular fa-pen-to-square fa-lg"></i><p>Mode édition</p></div>`;
     const header = document.querySelector("header");
     header.style.marginTop = "70px";
     header.insertAdjacentHTML("afterbegin", bannerTemplate);
     // Création du bouton modifier
     const editButtonTemplate = `<a href="#" class="edit-link"><i class="fa-regular fa-pen-to-square"></i> modifier</a>`;
     // Positionnement des différents boutons modifier
-    const imgSophie = document.querySelector("#introduction img");
-    const introSophie = document.querySelector("#introduction h2");
     const galleryTitle = document.querySelector("#portfolio h2");
-    imgSophie.insertAdjacentHTML("afterend", editButtonTemplate);
-    introSophie.insertAdjacentHTML("beforebegin", editButtonTemplate);
     galleryTitle.insertAdjacentHTML("afterend", editButtonTemplate);
     // Ajout d'un href="#modal" sur le bouton modifier de la galerie
     const editButtonGallery = document.querySelector("#portfolio a");
@@ -239,13 +235,6 @@ function displayWorksModal() {
         gallery.append(figure);
         figure.append(deleteButton, image, figCaption);
       }
-      // Création du bouton "déplacer" sur le premier work
-      const firstFigure = document
-        .getElementsByClassName("modal-figure-works")
-        .item(0);
-      const moveButton = document.createElement("i");
-      moveButton.classList.add("fa-solid", "fa-up-down-left-right");
-      firstFigure.prepend(moveButton);
     });
 }
 

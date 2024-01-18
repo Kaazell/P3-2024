@@ -1,38 +1,42 @@
-// Connexion //
-// Récupération du formulaire et des inputs.
+//Récupération de l'élément form
 const form = document.querySelector("form");
-const url = "http://localhost:5678/api/users/login";
 
-// Ecoute du submit
-form.addEventListener("submit", handleSubmit);
+/**
+ * Connexion
+ * @param {string} event clic sur le bouton de connexion 
+ */
+async function onSubmit(event) {
+    event.preventDefault();
+    // définition de l'utilisation
+    let user = {
+        email: form.email.value,
+        password: form.password.value,
+    };
+    
+    // récupération des données API
+    let response = await fetch("http://localhost:5678/api/users/login", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(user),
+    });
+    
+    let result = await response.json();
 
-async function handleSubmit(e) {
-  // On prévient le comportement par défaut du submit.
-  e.preventDefault();
+    // si les identifiants sont justes
+    if (response.status === 200) {
+        localStorage.setItem("token", result.token);
+        window.location.replace(`index.html`);
+    // sinon, si les identifiants sont faux
+    } else if (response.status === 404 || response.status === 401) {
+        form.email.value = "";
+        form.password.value = "";
+        alert("Erreur dans l’identifiant ou le mot de passe");
+    }
+};
 
-  // On crée l'objet que nous enverrons par requête POST
-  let adminInfo = {
-    email: email.value,
-    password: password.value,
-  };
+form.addEventListener("submit", onSubmit);
 
-  //  Appel à l'API qui renvoie une réponse 2xx ou 4xx
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(adminInfo),
-  });
-  // Ce qu'il se passe si le statue de la requete API est du statut 200: d'abord récuperer les données recues sur l'api au format JSON
-  if (response.ok) {
-    // enregistrement du Token dans le local storage afin de pouvoir s'en servir pour la suite du Projet
-    const data = await response.json();
-    sessionStorage.setItem("token", data.token);
-
-    // Rediriger l'utilisateur sur la page d'accueil
-    window.location.href = "index.html";
-  } else {
-    alert("Identifiant ou mot de passe incorrect.");
-  }
-}
+const body = document.querySelector('body');
+body.style.height = '100%';
